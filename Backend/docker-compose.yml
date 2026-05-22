@@ -1,0 +1,90 @@
+version: "3.8"
+
+services:
+  redis:
+    image: 'redis:7.0'
+    container_name: redis-demo
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/var/lib/redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-demo
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: demo
+
+  mongo:
+    image: mongo
+    container_name: mongo-demo
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  activemq:
+    image: symptoma/activemq:5.17.3
+    container_name: 'activemq'
+    ports:
+      - "61616:61616"
+    volumes:
+      - ~/Documents/data/activemq/data:/data/activemq
+      - ~/Documents/data/activemq/log:/var/log/activemq
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.2.3
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  broker:
+    image: confluentinc/cp-kafka:7.2.3
+    container_name: broker
+    ports:
+      # To learn about configuring Kafka for access across networks see
+      # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
+    networks:
+      - esnet
+    ports:
+      - 9200:9200
+  zipkin:
+    container_name: zipkin-server
+    image: openzipkin/zipkin:latest
+    ports:
+      - 9411:9411
+    environment:
+      - STORAGE_TYPE=mem # update env if you use external databases
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  esnet:
