@@ -6,7 +6,7 @@ Mikan Marketplace is a multi-vendor e-commerce platform with AI-powered product 
 
 ```bash
 Mikan-Marketplace/
-├── ฺBackend/     # Spring Boot Backend API
+├── Backend/     # Spring Boot Backend API
 └── Frontend/    # Next.js Frontend
 ```
 
@@ -41,6 +41,34 @@ Frontend will start at:
 
 ```bash
 http://localhost:3000
+```
+
+---
+
+# Backend Configuration
+
+Before running Backend, configure database connection in:
+
+```bash
+Backend/src/main/resources/application.properties
+```
+
+Add:
+
+```properties
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=
+```
+
+Example:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/mikan
+spring.datasource.username=postgres
+spring.datasource.password=1234
+spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
 ---
