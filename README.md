@@ -6,6 +6,7 @@ Mikan Marketplace is a multi-vendor e-commerce platform with AI-powered product 
 
 ```bash
 Mikan-Marketplace/
+└── AI/          # Python AI module
 ├── Backend/     # Spring Boot Backend API
 └── Frontend/    # Next.js Frontend
 ```
@@ -24,6 +25,10 @@ Mikan-Marketplace/
 - Java
 - PostgreSQL
 - Vector Database
+
+# AI module
+- Python
+- RAG
 
 ---
 
@@ -96,23 +101,43 @@ Backend will start at:
 http://localhost:8080
 ```
 
+# Run AI
+
+Open AI project on your preferred IDE.
+
+Run by using global PIP:
+
+```bash
+pip install -r requirements.txt
+python module.py
+```
+
+Or using virtual environments:
+
+```bash
+python -m venv .venv
+./.venv/Scripts/activate
+pip install -r requirements.txt
+python module.py
+```
+
+AI module will start at:
+
+```bash
+http://localhost:3001
+```
+
 ---
 
 # Features
 
-- Multi-vendor marketplace
-- AI semantic product search
-- Vector search integration
-- Shopping cart system
-- Order management
-- Product recommendation
-- Product option support
+- Main AI search system
 
 ---
 
 # Development Notes
 
-Frontend and Backend are separated into different folders.
+All of three folders are separated into different folders.
 
 Run both services simultaneously:
 
@@ -124,6 +149,10 @@ npm run dev
 # Terminal 2
 cd Backend
 run MikanRestApiApplication.java
+
+# Terminal 3
+cd AI
+uvicorn module:app --host 0.0.0.0 --port 3001 --reload
 ```
 
 ---
