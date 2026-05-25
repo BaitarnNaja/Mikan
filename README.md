@@ -131,7 +131,13 @@ http://localhost:3001
 
 # Features
 
-- Main AI search system
+- Multi-vendor marketplace
+- AI semantic product search
+- Vector search integration
+- Shopping cart system
+- Order management
+- Product recommendation
+- Product option support
 
 ---
 
