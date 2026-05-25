@@ -1,0 +1,15 @@
+# Python virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables (Secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# กรณีที่ต้องการทำ Template ไว้ให้คนอื่นรู้ว่าต้องตั้งค่าอะไรบ้าง (ไม่ต้อง ignore ไฟล์นี้)
+# !.env.example
