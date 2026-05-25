@@ -105,6 +105,17 @@ http://localhost:8080
 
 Open AI project on your preferred IDE.
 
+1. Create `.env` at `./AI/.env`
+2. Copy these text in .env
+```
+GOOGLE_API_KEY={YOUR_API_KEYS}
+CHROMADB_API={YOUR_API_KEYS}
+```
+**Note** You can get your own API keys at
+- Google cloud AI API `https://aistudio.google.com/app/api-keys`
+- ChromaDB API `https://www.trychroma.com`
+
+3. Running module step
 Run by using global PIP:
 
 ```bash
